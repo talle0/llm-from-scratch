@@ -140,7 +140,7 @@ def token_ids_to_text(token_ids, tokenizer):
 
 torch.manual_seed(123)
 
-def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=None, eos_id=None):
+def generate(model, idx, max_new_tokens, context_size, temperature=1.0, top_k=None, eos_id=None):
 
     # for 루프는 이전과 동일합니다. 로짓을 받아 마지막 타임 스텝만 사용합니다.
     for _ in range(max_new_tokens):
@@ -184,7 +184,7 @@ def generate(model, idx, max_new_tokens, context_size, temperature=0.0, top_k=No
 
 token_ids = generate(
     model=gpt,
-    idx=text_to_token_ids("Every effort moves you", tokenizer).to(device),
+    idx=text_to_token_ids("Every effort move", tokenizer).to(device),
     max_new_tokens=25,
     context_size=NEW_CONFIG["context_length"],
     top_k=50,
@@ -192,3 +192,4 @@ token_ids = generate(
 )
 
 print("출력 텍스트:\n", token_ids_to_text(token_ids, tokenizer))
+
